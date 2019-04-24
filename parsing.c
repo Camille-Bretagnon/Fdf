@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/24 11:49:49 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:45:19 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,10 @@ char			*next_nbr(char *str, float *current)
 		str++;
 	while (*str && *str >= '0' && *str <= '9')
 	{
-		nb = nb * 10 + *str + '0';
+		nb = nb * 10 + *str - '0';
 		str++;
 	}
 	current[2] = nb;
-	while (*str && *str == ' ')
-		str++;
 	return (str);
 }
 
@@ -116,7 +114,8 @@ void			print_point(float *point, int i, int x)
 {
 	if (i % x == 0)
 		printf("\n");
-	printf("%.0f, %.0f, %.0f; ", point[0], point[1], point[2]);
+	//printf("%.0f, %.0f, %.0f; ", point[0], point[1], point[2]);
+	printf("%2.0f ", point[2]);
 }
 
 void			print_array_points(float **array, int x, int y)
@@ -131,27 +130,26 @@ void			print_array_points(float **array, int x, int y)
 }
 //TODO STOP
 
-float			**parser_fdf(int fd, int x, int y)
+void			parser_fdf(int fd, int x, int y, float **array)
 {
 	int			current_x;
 	int			current_y;
-	float		**ret;
 	char		*line;
+	char 		*temp;
 
 	//if ((y = nb_lines(file) < 1))
 	//	return (NULL); //set error pour savoir quel message d'erreur afficher
-	current_x = -1;
-	current_y = -1;
-	ret = generate_array_points(x, y);
+	current_y = 0;
 	while (++current_y < y)
 	{
 		get_next_line(fd, &line);
+		temp = line;
+		current_x = -1;
 		while (++current_x < x)
-			line = next_nbr(line, ret[current_y * x + current_x - 1]);
+			temp = next_nbr(temp, array[current_y * x + current_x]);
 		free(line);
 	}
 	//gestion des erreurs
-	return (ret);
 }
 
 #include <stdio.h>
@@ -166,13 +164,20 @@ int			main(int argc, char **argv)
 	char	*line;
 	int		fd;
 	float	**array;
+	int		i;
+	char	*temp;
 
+	i = -1;
 	y = nb_lines(argv[1]);
 	fd = open(argv[1], O_RDONLY);
 	get_next_line(fd, &line);
 	x = nb_points(line);
+	temp = line;
+	array = generate_array_points(x, y);
+	while (++i < x)
+		temp = next_nbr(temp, array[i]);
 	free(line);
-	array = parser_fdf(fd, x, y);
+	parser_fdf(fd, x, y, array);
 	print_array_points(array, x, y);
 	return (0);
 }
