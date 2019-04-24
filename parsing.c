@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/24 12:45:19 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:21:39 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int			nb_points(char	*str)
+static int			nb_points(char	*str)
 {
 	int		ret;
 
@@ -37,7 +37,7 @@ int			nb_points(char	*str)
 	return (ret);
 }
 
-int			nb_lines(char *file)
+static int			nb_lines(char *file)
 {
 	int		fd;
 	int		i;
@@ -69,7 +69,7 @@ int			nb_lines(char *file)
 	return (lines);
 }
 
-char			*next_nbr(char *str, float *current)
+static char			*next_nbr(char *str, float *current)
 {
 	int		nb;
 
@@ -99,8 +99,8 @@ float			**generate_array_points(int x, int y)
 	{
 		if (!(ret[i] = (float *)malloc(sizeof(float) * 3)))
 			return (NULL);
-		ret[i][0] = BASE;
-		ret[i][1] = BASE;
+		ret[i][0] = i % x * BASE;
+		ret[i][1] = i / x * BASE;
 		ret[i][2] = 0.0;
 	}
 	return (ret);
@@ -114,8 +114,8 @@ void			print_point(float *point, int i, int x)
 {
 	if (i % x == 0)
 		printf("\n");
-	//printf("%.0f, %.0f, %.0f; ", point[0], point[1], point[2]);
-	printf("%2.0f ", point[2]);
+	printf("%.0f, %.0f, %.0f; ", point[0], point[1], point[2]);
+	//printf("%2.0f ", point[2]);
 }
 
 void			print_array_points(float **array, int x, int y)
@@ -130,7 +130,7 @@ void			print_array_points(float **array, int x, int y)
 }
 //TODO STOP
 
-void			parser_fdf(int fd, int x, int y, float **array)
+static void			parser_fdf(int fd, int x, int y, float **array)
 {
 	int			current_x;
 	int			current_y;
@@ -155,12 +155,8 @@ void			parser_fdf(int fd, int x, int y, float **array)
 #include <stdio.h>
 #include <stdlib.h>
 
-int			main(int argc, char **argv)
+float			**get_points(char *file, t_env *env)
 {
-	(void)argc;
-
-	int 	y;
-	int 	x;
 	char	*line;
 	int		fd;
 	float	**array;
@@ -168,16 +164,16 @@ int			main(int argc, char **argv)
 	char	*temp;
 
 	i = -1;
-	y = nb_lines(argv[1]);
-	fd = open(argv[1], O_RDONLY);
+	env->y = nb_lines(file);
+	fd = open(file, O_RDONLY);
 	get_next_line(fd, &line);
-	x = nb_points(line);
+	env->x = nb_points(line);
 	temp = line;
-	array = generate_array_points(x, y);
-	while (++i < x)
+	array = generate_array_points(env->x, env->y);
+	while (++i < env->x)
 		temp = next_nbr(temp, array[i]);
 	free(line);
-	parser_fdf(fd, x, y, array);
-	print_array_points(array, x, y);
-	return (0);
+	parser_fdf(fd, env->x, env->y, array);
+	print_array_points(array, env->x, env->y);
+	return (array);
 }
