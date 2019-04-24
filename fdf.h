@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:02:41 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/24 18:23:43 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/24 19:04:28 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ typedef struct s_env
 			int				endian;
 			float			**points;
 			int				**projected;
-			int				current_x1;
-			int				current_y1;
-			int				current_x2;
-			int				current_y2;
+			int				x1;
+			int				y1;
+			int				x2;
+			int				y2;
 }				t_env;
 
 void		put_pixel(t_env env, int x, int y, int color);
-void		draw_line(t_env env, int color);
+void		draw_line(t_env *env, int color);
 void		display_img(t_env env);
 
 int			plot(float nb);
