@@ -6,79 +6,95 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:33:59 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/24 19:10:16 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:57:13 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "fdf.h"
+#include <stdlib.h>
 
 void		put_pixel(t_env env, int x, int y, int color)
 {
 	int		pos;
 
+	if (x < 0 || x > IMG_W || y < 0 || y > IMG_H)
+		return ;
 	pos =  y * WIDTH + x;
 	env.str_img[pos] = color;
 }
 
 void		draw_line(t_env *env, int color)
 {
-	int		x_slope;
-	int		y_slope;
-	int		dir_x;
-	int		dir_y;
 	int		error;
 	int		temp;
 
-	x_slope = env->x1 - env->x2 < 0 ? (env->x2 - env->x1) : (env->x1 - env->x2);
-	y_slope = env->y1 - env->y2 < 0 ? (env->y2 - env->y1) : (env->y1 - env->y2);
-	dir_x = env->x1 < env->x2 ? 1 : -1;
-	dir_y = env->y1 < env->y2 ? 1 : -1;
-	error = (x_slope > y_slope ? x_slope : y_slope * -1) / 2;
-	while (env->x1 != env->x2 || env->y1 != env->y2)
+	check_line(env->line);
+	error = (env->line->x_slope > env->line->y_slope ? env->line->x_slope : -(env->line->y_slope) / 2);
+	while (env->line->x1 != env->line->x2 || env->line->y1 != env->line->y2)
 	{
-		put_pixel(*env, env->x1, env->y1, color);
+		put_pixel(*env, env->line->x1, env->line->y1, color);
 		temp = error;
-		if (temp > (x_slope * -1))
+		if (temp > -(env->line->x_slope))
 		{
-			error -= dir_y;
-			env->x1 += dir_x;
+			error -= env->line->dir_y;
+			env->line->x1 += env->line->dir_x;
 		}
-		if (temp < y_slope)
+		if (temp < env->line->y_slope)
 		{
-			error += dir_x;
-			env->y1 += dir_y;
+			error += env->line->dir_x;
+			env->line->y1 += env->line->dir_y;
 		}
 	}
 }
 
-void		assign_points_toconnect(t_env *env, int p1, int p2)
+void		assign_points(t_env *env, int p1, int p2)
 {
-	env->x1 = env->projected[p1][0];
-	env->x2 = env->projected[p2][0];
-	env->y1 = env->projected[p1][1];
-	env->y2 = env->projected[p2][1];
+	//env->line->x1 = plot(env->points[p1][0]) * 10 - plot(env->points[p1][1]) * 10;
+	//env->line->x2 = plot(env->points[p2][0]) * 10 - plot(env->points[p2][1]) * 10;
+	//env->line->y1 = plot(env->points[p1][0]) * 10 + plot(env->points[p2][1]) * 10;
+	//env->line->y2 = plot(env->points[p2][0]) * 10 + plot(env->points[p2][1]) * 10;
+	compute_points(env, env->matrix, p1, p2);
+	env->line->x_slope = abs(env->line->x1 - env->line->x2);
+	env->line->y_slope = abs(env->line->y1 - env->line->y2);
+	env->line->dir_x = env->line->x1 < env->line->x2 ? 1 : -1;
+	env->line->dir_y = env->line->y1 < env->line->y2 ? 1 : -1;
 }
 
-void		display_img(t_env env)
+void		check_line(t_param_line *line)
+{
+	printf("\nx1 %d y1 %d x2 %d y2 %d\nx_slope %d y_slope %d\ndir_x %d dir_y %d\n",
+			line->x1, line->y1, line->x2, line->y2, line->x_slope, line->y_slope,
+			line->dir_x, line->dir_y);
+}//TODO remove
+
+void		display_img(t_env *env)
 {
 	int				i;
 	int				size;
 
-	env.img = mlx_new_image(env.mlx_ptr, WIDTH, HEIGHT);
-	env.str_img = (int *)mlx_get_data_addr(env.img, &(env.bpp), &(env.s_l), &(env.endian));
-	put_pixel(env, 100, 100, 0xFFFFF);
-	assign_points_toconnect(&env, 0, 1);
-	draw_line(&env, 0xFFFFF);
-/*	i = -1;
+	env->img = mlx_new_image(env->mlx_ptr, IMG_W, IMG_H);
+	env->str_img = (int *)mlx_get_data_addr(env->img, &env->bpp, &env->s_l, &env->endian);
+	/*env->line->x1 = 0;
+	env->line->y1 = 0;
+	env->line->x2 = 16;
+	env->line->y2 = -8;
+	assign_points(env, 1, 2);
+	draw_line(env, 0xFFFFF);
+	*/i = -1;
 	size = env->x * env->y;
-	while (++i < size - 1)
+	while (++i < size - 2)
 	{
 		if ((i + 1) % env->x != 0)
-			draw_line(str_img, env->projected[i], env->projected[i + 1], size_line);
+		{
+			assign_points(env, i, i + 1);
+			draw_line(env, 0xFFFFF);
+		}
 		if ((i + env->x) < size)
-			draw_line(str_img, env->projected[i], env->projected[i + env->x], size_line);
+		{
+			assign_points(env, i, i + env->x);
+			draw_line(env, 0xFFFFF);
+		}
 	}
-*/
-	mlx_put_image_to_window(env.mlx_ptr, env.window, env.img, 0, 0);
+	mlx_put_image_to_window(env->mlx_ptr, env->window, env->img, WIDTH - IMG_W, HEIGHT - IMG_H);
 }

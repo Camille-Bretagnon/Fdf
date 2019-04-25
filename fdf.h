@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:02:41 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/25 12:58:54 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:57:09 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #define HEIGHT 1200
 #define IMG_W 1200
 #define IMG_H 800
-#define BASE 20.0
+#define BASE 20
 #define	COLOR 0xFFFFFF
 
 typedef struct s_param_line
@@ -34,10 +34,10 @@ typedef struct s_param_line
 
 typedef struct s_matrix
 {
-			float		x[3][3];
-			float		y[3][3];
-			float		z[3][3];
-			float		mat[3][3];
+			float		x[9];
+			float		y[9];
+			float		z[9];
+			float		mat[9];
 }				t_matrix;
 
 typedef struct s_env
@@ -78,5 +78,7 @@ void		matrix_init(t_matrix *matrix);
 void		x_matrix(t_matrix *matrix, float angle);
 void		y_matrix(t_matrix *matrix, float angle);
 void		z_matrix(t_matrix *matrix, float angle);
-void		print_matrix(t_matrix *matrix);
+void		compute_points(t_env *env, t_matrix *matrix, int p1, int p2);
+void		print_matrix(float matrix[9]);//TODO remove
+
 #endif
