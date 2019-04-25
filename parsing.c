@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/24 18:21:39 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/25 11:05:09 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,6 @@ float			**get_points(char *file, t_env *env)
 		temp = next_nbr(temp, array[i]);
 	free(line);
 	parser_fdf(fd, env->x, env->y, array);
-	print_array_points(array, env->x, env->y);
+	//print_array_points(array, env->x, env->y);
 	return (array);
 }

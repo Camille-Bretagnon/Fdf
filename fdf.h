@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:02:41 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/24 19:04:28 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/25 12:58:54 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,30 @@
 
 #define WIDTH 1600
 #define HEIGHT 1200
-#define IMG_WIDTH 1200
-#define IMG_HEIGHT 800
+#define IMG_W 1200
+#define IMG_H 800
 #define BASE 20.0
 #define	COLOR 0xFFFFFF
+
+typedef struct s_param_line
+{
+			int			x1;
+			int			x2;
+			int			y1;
+			int			y2;
+			int			x_slope;
+			int			y_slope;
+			int			dir_x;
+			int			dir_y;
+}				t_param_line;
+
+typedef struct s_matrix
+{
+			float		x[3][3];
+			float		y[3][3];
+			float		z[3][3];
+			float		mat[3][3];
+}				t_matrix;
 
 typedef struct s_env
 {
@@ -33,15 +53,15 @@ typedef struct s_env
 			int				endian;
 			float			**points;
 			int				**projected;
-			int				x1;
-			int				y1;
-			int				x2;
-			int				y2;
+			t_param_line	*line;
+			t_matrix		*matrix;
 }				t_env;
 
 void		put_pixel(t_env env, int x, int y, int color);
 void		draw_line(t_env *env, int color);
-void		display_img(t_env env);
+void		display_img(t_env *env);
+void		assign_points(t_env *env, int p1, int p2);
+void		check_line(t_param_line *line); //TODO remove
 
 int			plot(float nb);
 int			**generate_array(int x, int y);
@@ -54,4 +74,9 @@ float		**get_points(char *file, t_env *env);
 void		print_point(float *point, int i, int x);
 void		print_array_points(float **array, int x, int y);
 
+void		matrix_init(t_matrix *matrix);
+void		x_matrix(t_matrix *matrix, float angle);
+void		y_matrix(t_matrix *matrix, float angle);
+void		z_matrix(t_matrix *matrix, float angle);
+void		print_matrix(t_matrix *matrix);
 #endif
