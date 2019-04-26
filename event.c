@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:47:14 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 16:14:08 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:21:36 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void		increase_z_value(t_env *env, int size, int add)
 	i = -1;
 	while (++i < size)
 	{
-		if ((int)env->points[i][2] > env->ground_z)
+		if ((int)env->points[i][2] > 0 && (int)env->points[i][2] + add > 0)
 			env->points[i][2] += add;
+		if ((int)env->points[i][2] < 0 && (int)env->points[i][2] + add < 0)
+			env->points[i][2] -= add;
 	}
 	mlx_destroy_image(env->mlx_ptr, env->img);
 	display_img(env);

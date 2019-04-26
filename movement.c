@@ -5,100 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/25 11:39:17 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/25 12:58:47 by cbretagn         ###   ########.fr       */
+/*   Created: 2019/04/25 15:11:47 by cbretagn          #+#    #+#             */
+/*   Updated: 2019/04/25 15:33:18 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "fdf.h"
 #include <mlx.h>
-#include <math.h>
 
-void		matrix_init(t_matrix *matrix)
+void		copy_matrix(float src[9], float dst[9])
 {
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < 3)
-	{
-		j = -1;
-		while (++j < 3)
-		{
-			if (i == j)
-				matrix->mat[i][j] = 1;
-			else
-				matrix->mat[i][j] = 0;
-		}
-	}
+	dst[0] = src[0];
+	dst[1] = src[1];
+	dst[2] = src[2];
+	dst[3] = src[3];
+	dst[4] = src[4];
+	dst[5] = src[5];
+	dst[6] = src[6];
+	dst[7] = src[7];
+	dst[8] = src[8];
 }
 
-void		x_matrix(t_matrix *matrix, float angle)
+void		compute_matrix(t_matrix *matrix, float rotation[9])
 {
-	matrix->x[0][0] = 1;
-	matrix->x[0][1] = 0;
-	matrix->x[0][2] = 0;
-	matrix->x[1][0] = 0;
-	matrix->x[1][1] = cos(angle);
-	matrix->x[1][2] = -(sin(angle));
-	matrix->x[2][0] = 0;
-	matrix->x[2][1] = sin(angle);
-	matrix->x[2][2] = cos(angle);
-}
+	float		temp[9];
 
-void		y_matrix(t_matrix *matrix, float angle)
-{
-	matrix->y[0][0] = cos(angle);
-	matrix->y[0][1] = 0;
-	matrix->y[0][2] = sin(angle);
-	matrix->y[1][0] = 0;
-	matrix->y[1][1] = 1;
-	matrix->y[1][2] = 0;
-	matrix->y[2][0] = -(sin(angle));
-	matrix->y[2][1] = 0;
-	matrix->y[2][2] = cos(angle);
-}
-void		z_matrix(t_matrix *matrix, float angle)
-{
-	matrix->z[0][0] = cos(angle);
-	matrix->z[0][1] = -(sin(angle));
-	matrix->z[0][2] = 0;
-	matrix->z[1][0] = sin(angle);
-	matrix->z[1][1] = cos(angle);
-	matrix->z[1][2] = 0;
-	matrix->z[2][0] = 0;
-	matrix->z[2][1] = 0;
-	matrix->z[2][2] = 1;
-}
-
-//TODO remove
-
-void		print_matrix(t_matrix *matrix)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < 3)
-	{
-		j = -1;
-		while (++j < 3)
-			printf("% 5.0f", matrix->mat[i][j]);
-		printf("% 10s", "");
-		j = -1;
-		while (++j < 3)
-			printf("% 5.0f", matrix->x[i][j]);
-		printf("% 10s", "");
-		j = -1;
-		while (++j < 3)
-			printf("% 5.0f", matrix->y[i][j]);
-		printf("% 10s", "");
-		j = -1;
-		while (++j < 3)
-			printf("% 5.0f", matrix->z[i][j]);
-		printf("% 10s", "");
-		printf("\n");
-	}
-}
-void		compute_matrix(t_matrix *matrix)
-{
+	copy_matrix(matrix->mat, temp);
+	matrix->mat[0] = temp[0] * 
+	matrix->mat[1] =
+	matrix->mat[2] =
+	matrix->mat[3] =
+	matrix->mat[4] =
+	matrix->mat[5] =
+	matrix->mat[6] =
+	matrix->mat[7] =
+	matrix->mat[8] =

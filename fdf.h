@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:02:41 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 15:20:42 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:27:34 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_env
 			int				s_l;
 			int				endian;
 			float			zoom;
+			int				color;
 			int				ground_z;
 			int				x_modifier;
 			int				y_modifier;

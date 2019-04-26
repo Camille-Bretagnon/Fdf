@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 10:13:27 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 12:22:07 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:32:39 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,17 @@ int		main(int argc, char **argv)
 	if (!(env->matrix = (t_matrix *)malloc(sizeof(t_matrix))))
 		return (-1);
 	matrix_init(env->matrix);
-	x_matrix(env->matrix, 0.523599);
-	y_matrix(env->matrix, 0.5);
-	//z_matrix(env->matrix, 90);
-	print_matrix(env->matrix->mat);
+	env->matrix->x_angle = 0.523599;
+	env->matrix->y_angle = 0.523599;
+	x_matrix(env->matrix, env->matrix->x_angle);
+	y_matrix(env->matrix, env->matrix->y_angle);
 	print_matrix(env->matrix->x);
 	print_matrix(env->matrix->y);
-	print_matrix(env->matrix->z);
+	env->zoom = 1;
 	env->mlx_ptr = mlx_init();
 	env->window = mlx_new_window(env->mlx_ptr, WIDTH, HEIGHT, "test");
 	env->points = get_points(argv[1], env);
+	clipping(env);
 	print_array_points(env->points, env->x, env->y);
 	//env.projected = generate_array(env.x, env.y);
 	//parallel_proj(env.projected, env.points, env.x, env.y);
