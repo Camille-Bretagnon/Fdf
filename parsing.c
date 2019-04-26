@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 11:47:08 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:02:09 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void			print_point(float *point, int i, int x)
 {
 	if (i % x == 0)
 		printf("\n");
-	printf("%.0f, %.0f, %.0f; ", point[0], point[1], point[2]);
+	printf("%.0f"/*, %.0f, %.0f; ", point[0], point[1]*/, point[2]);
 	//printf("%2.0f ", point[2]);
 }
 

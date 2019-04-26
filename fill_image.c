@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:33:59 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 12:22:10 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:57:49 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void		assign_points(t_env *env, int p1, int p2)
 	//env->line->y1 = plot(-(env->points[p1][2]) + (env->points[p1][0] + env->points[p1][1]) * cos (0.523599));
 	//env->line->y2 = plot(-(env->points[p2][2]) + (env->points[p2][0] + env->points[p2][1]) * cos (0.523599));
 	compute_points(env, env->matrix, p1, p2);
+	env->line->x1 = plot((env->line->x1 + env->x_modifier) * env->zoom);
+	env->line->y1 = plot((env->line->y1 + env->y_modifier) * env->zoom);
+	env->line->x2 = plot((env->line->x2 + env->x_modifier) * env->zoom);
+	env->line->y2 = plot((env->line->y2 + env->y_modifier) * env->zoom);
 	env->line->x_slope = abs(env->line->x2 - env->line->x1);
 	env->line->y_slope = abs(env->line->y2 - env->line->y1);
 	env->line->dir_x = env->line->x1 < env->line->x2 ? 1 : -1;
