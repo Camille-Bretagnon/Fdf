@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/25 15:09:06 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:47:08 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int			nb_points(char	*str)
 	{
 		while (*str == ' ')
 			str++;
-		if (*str >= '0' && *str <= '9')
+		if ((*str >= '0' && *str <= '9') || *str == '-')
 			ret++;
-		while (*str >= '0' && *str <= '9')
+		while ((*str >= '0' && *str <= '9') || *str == '-')
 			str++;
 		if (*str && *str != ' ' && *str != '\n')
 			return (-1);
@@ -72,16 +72,23 @@ static int			nb_lines(char *file)
 static char			*next_nbr(char *str, float *current)
 {
 	int		nb;
+	int		sign;
 
 	nb = 0;
+	sign = 1;
 	while (*str && *str == ' ')
 		str++;
-	while (*str && *str >= '0' && *str <= '9')
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	while (*str && (*str >= '0' && *str <= '9'))
 	{
 		nb = nb * 10 + *str - '0';
 		str++;
 	}
-	current[2] = nb;
+	current[2] = nb * sign * 5;
 	return (str);
 }
 
@@ -99,8 +106,8 @@ float			**generate_array_points(int x, int y)
 	{
 		if (!(ret[i] = (float *)malloc(sizeof(float) * 3)))
 			return (NULL);
-		ret[i][0] = i % x * BASE;
-		ret[i][1] = i / x * BASE;
+		ret[i][0] = (i % x) * BASE;
+		ret[i][1] = (x - i / x) * BASE;
 		ret[i][2] = 0.0;
 	}
 	return (ret);

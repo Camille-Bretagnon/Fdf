@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:33:59 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/25 16:57:13 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 12:22:10 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		put_pixel(t_env env, int x, int y, int color)
 
 	if (x < 0 || x > IMG_W || y < 0 || y > IMG_H)
 		return ;
-	pos =  y * WIDTH + x;
+	pos =  y * IMG_W + x;
 	env.str_img[pos] = color;
 }
 
@@ -29,20 +29,19 @@ void		draw_line(t_env *env, int color)
 	int		error;
 	int		temp;
 
-	check_line(env->line);
-	error = (env->line->x_slope > env->line->y_slope ? env->line->x_slope : -(env->line->y_slope) / 2);
+	error = (env->line->x_slope > env->line->y_slope ? env->line->x_slope : -(env->line->y_slope)) / 2;
 	while (env->line->x1 != env->line->x2 || env->line->y1 != env->line->y2)
 	{
 		put_pixel(*env, env->line->x1, env->line->y1, color);
 		temp = error;
 		if (temp > -(env->line->x_slope))
 		{
-			error -= env->line->dir_y;
+			error -= env->line->y_slope;
 			env->line->x1 += env->line->dir_x;
 		}
 		if (temp < env->line->y_slope)
 		{
-			error += env->line->dir_x;
+			error += env->line->x_slope;
 			env->line->y1 += env->line->dir_y;
 		}
 	}
@@ -50,13 +49,13 @@ void		draw_line(t_env *env, int color)
 
 void		assign_points(t_env *env, int p1, int p2)
 {
-	//env->line->x1 = plot(env->points[p1][0]) * 10 - plot(env->points[p1][1]) * 10;
-	//env->line->x2 = plot(env->points[p2][0]) * 10 - plot(env->points[p2][1]) * 10;
-	//env->line->y1 = plot(env->points[p1][0]) * 10 + plot(env->points[p2][1]) * 10;
-	//env->line->y2 = plot(env->points[p2][0]) * 10 + plot(env->points[p2][1]) * 10;
+	//env->line->x1 = plot(((env->points[p1][0]) - (env->points[p1][1])) * cos(0.523599)) + 200;
+	//env->line->x2 = plot(((env->points[p2][0]) - (env->points[p2][1])) * cos(0.523599)) + 200;
+	//env->line->y1 = plot(-(env->points[p1][2]) + (env->points[p1][0] + env->points[p1][1]) * cos (0.523599));
+	//env->line->y2 = plot(-(env->points[p2][2]) + (env->points[p2][0] + env->points[p2][1]) * cos (0.523599));
 	compute_points(env, env->matrix, p1, p2);
-	env->line->x_slope = abs(env->line->x1 - env->line->x2);
-	env->line->y_slope = abs(env->line->y1 - env->line->y2);
+	env->line->x_slope = abs(env->line->x2 - env->line->x1);
+	env->line->y_slope = abs(env->line->y2 - env->line->y1);
 	env->line->dir_x = env->line->x1 < env->line->x2 ? 1 : -1;
 	env->line->dir_y = env->line->y1 < env->line->y2 ? 1 : -1;
 }
@@ -79,11 +78,11 @@ void		display_img(t_env *env)
 	env->line->y1 = 0;
 	env->line->x2 = 16;
 	env->line->y2 = -8;
-	assign_points(env, 1, 2);
+	assign_points(env, 0, 1);
 	draw_line(env, 0xFFFFF);
 	*/i = -1;
 	size = env->x * env->y;
-	while (++i < size - 2)
+	while (++i < size - 1)
 	{
 		if ((i + 1) % env->x != 0)
 		{

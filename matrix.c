@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 11:39:17 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/25 16:57:06 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 12:05:26 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void		compute_points(t_env *env, t_matrix *matrix, int p1, int p2)
 	new_y = new_x * matrix->y[1] + new_y * matrix->y[4] + new_z * matrix->y[7];
 	new_z = new_x * matrix->y[2] + new_y * matrix->y[5] + new_z * matrix->y[8];
 	env->line->x1 = plot(new_x);
-	env->line->y1 = plot(new_y);
+	env->line->y1 = IMG_H - plot(new_y);
 	new_x = env->points[p2][0] * matrix->x[0] + env->points[p2][1] * matrix->x[3] 
 		+ env->points[p2][2] * matrix->x[6];
 	new_y = env->points[p2][0] * matrix->x[1] + env->points[p2][1] * matrix->x[4] 
@@ -136,7 +136,7 @@ void		compute_points(t_env *env, t_matrix *matrix, int p1, int p2)
 	new_y = new_x * matrix->y[1] + new_y * matrix->y[4] + new_z * matrix->y[7];
 	new_z = new_x * matrix->y[2] + new_y * matrix->y[5] + new_z * matrix->y[8];
 	env->line->x2 = plot(new_x);
-	env->line->y2 = plot(new_y);
+	env->line->y2 = IMG_H - plot(new_y);
 	printf("\nx1 %d y1 %d x2 %d y2 %d\n", env->line->x1, env->line->y1, env->line->x2, env->line->y2);
 }
 

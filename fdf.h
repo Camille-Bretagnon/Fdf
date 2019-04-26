@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:02:41 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/25 16:57:09 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/26 12:08:18 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void		z_matrix(t_matrix *matrix, float angle);
 void		compute_points(t_env *env, t_matrix *matrix, int p1, int p2);
 void		print_matrix(float matrix[9]);//TODO remove
 
+int			key_handle(int keycode, t_env *env);
 #endif
