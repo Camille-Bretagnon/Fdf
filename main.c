@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 10:13:27 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 16:32:39 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:41:43 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int		main(int argc, char **argv)
 	matrix_init(env->matrix);
 	env->matrix->x_angle = 0.523599;
 	env->matrix->y_angle = 0.523599;
+	env->ground_z = 0;
 	x_matrix(env->matrix, env->matrix->x_angle);
 	y_matrix(env->matrix, env->matrix->y_angle);
 	print_matrix(env->matrix->x);
 	print_matrix(env->matrix->y);
-	env->zoom = 1;
+	env->color = 0xFFFFFF;
 	env->mlx_ptr = mlx_init();
 	env->window = mlx_new_window(env->mlx_ptr, WIDTH, HEIGHT, "test");
 	env->points = get_points(argv[1], env);

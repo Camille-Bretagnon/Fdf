@@ -6,20 +6,12 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:11:58 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 13:59:20 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:07:15 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include "fdf.h"
-
-void		zoom(t_env *env, float add)
-{
-	if (env->zoom + add > 0 && env->zoom + add < 10)
-		env->zoom += add;
-	mlx_destroy_image(env->mlx_ptr, env->img);
-	display_img(env);
-}
 
 void		move_lr(t_env *env, int add)
 {
@@ -32,9 +24,35 @@ void		move_lr(t_env *env, int add)
 
 void		move_ud(t_env *env, int add)
 {
-	if (env->y_modifier + add > -IMG_H 
+	if (env->y_modifier + add > -IMG_H
 			&& env->y_modifier + add < IMG_H)
 		env->y_modifier += add;
 	mlx_destroy_image(env->mlx_ptr, env->img);
 	display_img(env);
+}
+
+void		change_color(t_env *env)
+{
+	if (env->color == WHITE)
+		env->color = BLUE;
+	else if (env->color == BLUE)
+		env->color = GREEN;
+	else if (env->color == GREEN)
+		env->color = RED;
+	else
+		env->color = WHITE;
+	mlx_destroy_image(env->mlx_ptr, env->img);
+	display_img(env);
+}
+
+void		key_move(int keycode, t_env *env)
+{
+	if (keycode == 13)
+		move_ud(env, -10);
+	if (keycode == 1)
+		move_ud(env, 10);
+	if (keycode == 0)
+		move_lr(env, -10);
+	if (keycode == 2)
+		move_lr(env, 10);
 }

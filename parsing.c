@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 16:02:09 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/30 12:42:48 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,23 @@ float			**generate_array_points(int x, int y)
 	float		**ret;
 	int			size;
 	int			i;
+	int			base;
+	int			base_x;
+	int			base_y;
 
 	i = -1;
 	size = x * y;
+	base_x = (int)((IMG_W * 0.60) / x);
+	base_y = (int)((IMG_H * 0.60) / y);
+	base = base_x < base_y ? base_x : base_y;
 	if (!(ret = (float **)malloc(sizeof(float *) * size)))
 		return (NULL);
 	while (++i < size)
 	{
 		if (!(ret[i] = (float *)malloc(sizeof(float) * 3)))
 			return (NULL);
-		ret[i][0] = (i % x) * BASE;
-		ret[i][1] = (x - i / x) * BASE;
+		ret[i][0] = (i % x) * base;
+		ret[i][1] = (x - i / x) * base;
 		ret[i][2] = 0.0;
 	}
 	return (ret);

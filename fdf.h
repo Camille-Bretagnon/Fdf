@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:02:41 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/26 16:27:34 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:41:47 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 
 #define WIDTH 1600
 #define HEIGHT 1200
-#define IMG_W 1600
+#define IMG_W 1200
 #define IMG_H 1200
 #define BASE 20
-#define	COLOR 0xFFFFFF
+
+#define BLUE 0x5439ee
+#define RED	0xba003a
+#define GREEN 0x75d726
+#define WHITE 0xFFFFFF
 
 typedef struct s_param_line
 {
@@ -51,7 +55,6 @@ typedef struct s_env
 			int				bpp;
 			int				s_l;
 			int				endian;
-			float			zoom;
 			int				color;
 			int				ground_z;
 			int				x_modifier;
@@ -86,9 +89,10 @@ void		compute_points(t_env *env, t_matrix *matrix, int p1, int p2);
 void		print_matrix(float matrix[9]);//TODO remove
 
 int			key_handle(int keycode, t_env *env);
-void		zoom(t_env *env, float add);
 void		move_ud(t_env *env, int add);
 void		move_lr(t_env *env, int add);
+void		key_move(int keycode, t_env *env);
+void		change_color(t_env *env);
 
 void		clipping(t_env *env);
 #endif
