@@ -6,13 +6,14 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 10:13:27 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/03 17:07:07 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:41:31 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <mlx.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 void		initialize(t_env *env)
 {
@@ -37,6 +38,11 @@ int			main(int argc, char **argv)
 {
 	t_env		*env;
 
+	if (argc != 2)
+	{
+		write(1, "usage : ./fdf [file_map]", 24);
+		exit(0);
+	}
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		malloc_error();
 	if (!(env->line = (t_param_line *)malloc(sizeof(t_param_line))))

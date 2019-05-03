@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/03 17:13:23 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:43:01 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,8 @@ static int		parser_fdf(int fd, int x, int y, float **array)
 	{
 		get_next_line(fd, &line);
 		temp = line;
-		printf("nbpoints %d\n", nb_points(line));
-		//if (nb_points(line) != x)
-		//	return (-1);
+		if (nb_points(line) != x)
+			return (-1);
 		current_x = -1;
 		while (++current_x < x)
 		{
