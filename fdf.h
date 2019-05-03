@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:02:41 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/03 16:29:01 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:58:16 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,6 @@ void		key_move(int keycode, t_env *env);
 void		change_color(t_env *env);
 
 void		clipping(t_env *env);
+void		malloc_error(void);
+int			close_fd(int fd, int lines);
 #endif
