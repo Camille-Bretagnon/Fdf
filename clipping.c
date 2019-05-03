@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:40:31 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/30 14:41:41 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:51:35 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ void		min_z(t_env *env, int size)
 	int	ret;
 
 	i = 0;
-	ret = (int)env->points[0][2];
+	ret = env->points[0][2];
 	while (++i < size)
 	{
-		if ((int)env->points[i][2] < ret)
-			ret = (int)env->points[0][2];
+		if (env->points[i][2] < ret)
+			ret = env->points[i][2];
 	}
 	env->ground_z = ret;
+	printf("\ni is %d ground %d\n", i, env->ground_z);
 }
 
 int			max_z(float **array, int size)
@@ -38,11 +39,12 @@ int			max_z(float **array, int size)
 	while (++i < size)
 	{
 		if ((int)array[i][2] > ret)
-			ret = (int)array[0][2];
+			ret = (int)array[i][2];
 	}
 	return (ret);
 }
 
+//TODO remove
 void		adjust_z(t_env *env, int size)
 {
 	int		i;
@@ -54,8 +56,10 @@ void		adjust_z(t_env *env, int size)
 	if (adjust == 0)
 		return ;
 	adjust /= 2;
+	printf("adjust is %d\n", adjust);
 	while (++i < size)
 		env->points[i][2] -= adjust;
+	min_z(env, env->x * env->y);
 }
 
 void		adjust_xy(t_env *env, int size)
@@ -79,6 +83,6 @@ void		adjust_xy(t_env *env, int size)
 void		clipping(t_env *env)
 {
 	adjust_xy(env, env->x * env->y);
-	min_z(env, env->x * env->y);
+	//min_z(env, env->x * env->y);
 	//adjust_z(env, env->x * env->y);
 }
