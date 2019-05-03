@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/03 17:43:01 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:09:05 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,59 +89,7 @@ static char			*next_nbr(char *str, float *current)
 	return (str);
 }
 
-/*float			**generate_array_points(int x, int y)
-{
-	float		**ret;
-	int			size;
-	int			i;
-	int			base;
-	int			base_x;
-	int			base_y;
-
-	i = -1;
-	size = x * y;
-	base_x = (int)((IMG_W * 0.60) / x);
-	base_y = (int)((IMG_H * 0.60) / y);
-	base = base_x < base_y ? base_x : base_y;
-	if (!(ret = (float **)malloc(sizeof(float *) * size)))
-		return (NULL);
-	while (++i < size)
-	{
-		if (!(ret[i] = (float *)malloc(sizeof(float) * 3)))
-			return (NULL);
-		ret[i][0] = (i % x) * base;
-		ret[i][1] = (x - i / x) * base;
-		ret[i][2] = 0.0;
-	}
-	return (ret);
-}*/
-
-//TODO remove
-
-#include <stdio.h>
-
-void			print_point(float *point, int i, int x)
-{
-	if (i % x == 0)
-		printf("\n");
-	printf("%.0f, %.0f, %.0f; ", point[0], point[1], point[2]);
-	//printf("%2.0f ", point[2]);
-}
-
-void			print_array_points(float **array, int x, int y)
-{
-	int			i;
-	int			size;
-
-	size = x * y;
-	i = -1;
-	while (++i < size)
-		print_point(array[i], i, x);
-}
-
-//TODO STOP
-
-static int		parser_fdf(int fd, int x, int y, float **array)
+static int			parser_fdf(int fd, int x, int y, float **array)
 {
 	int			current_x;
 	int			current_y;
@@ -166,7 +114,7 @@ static int		parser_fdf(int fd, int x, int y, float **array)
 	return (0);
 }
 
-float		**get_points(char *file, t_env *env)
+float				**get_points(char *file, t_env *env)
 {
 	char	*line;
 	int		fd;

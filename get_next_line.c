@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 14:29:36 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/03 16:06:29 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:05:36 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ static t_fd		*get_fd(t_fd **head, int fd)
 	return (send);
 }
 
-static int			free_lst(t_fd **head, int fd)
+static int		free_lst(t_fd **head, int fd)
 {
 	t_fd	*temp;
-	t_fd 	*del;
+	t_fd	*del;
 
 	temp = *head;
 	if (temp->fd == fd)

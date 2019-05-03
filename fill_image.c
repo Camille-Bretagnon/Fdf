@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:33:59 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/02 14:58:57 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:06:13 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,6 @@ void		assign_points(t_env *env, int p1, int p2)
 	env->line->dir_x = env->line->x1 < env->line->x2 ? 1 : -1;
 	env->line->dir_y = env->line->y1 < env->line->y2 ? 1 : -1;
 }
-
-void		check_line(t_param_line *line)
-{
-	printf("\nx1 %d y1 %d x2 %d y2 %d\nx_slope %d y_slope %d\ndir_x %d dir_y %d\n",
-			line->x1, line->y1, line->x2, line->y2, line->x_slope, line->y_slope,
-			line->dir_x, line->dir_y);
-}//TODO remove
 
 void		display_img(t_env *env)
 {

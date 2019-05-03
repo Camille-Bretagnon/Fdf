@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:11:58 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/04/30 14:07:15 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:48:19 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,12 @@ void		key_move(int keycode, t_env *env)
 		move_lr(env, -10);
 	if (keycode == 2)
 		move_lr(env, 10);
+}
+
+void		change_xymatrix(t_env *env, float x_angle, float y_angle)
+{
+	env->matrix->x_angle = x_angle;
+	env->matrix->y_angle = y_angle;
+	x_matrix(env->matrix, x_angle);
+	y_matrix(env->matrix, y_angle);
 }

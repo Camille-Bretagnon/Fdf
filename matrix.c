@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 11:39:17 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/03 16:29:31 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:08:37 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,13 @@ void		y_matrix(t_matrix *matrix, float angle)
 	matrix->y[8] = cos(angle);
 }
 
-//TODO remove
-void		print_matrix(float matrix[9])
-{
-	printf("\n% 5.0f% 5.0f% 5.0f", matrix[0], matrix[1], matrix[2]);
-	printf("\n% 5.0f% 5.0f% 5.0f", matrix[3], matrix[4], matrix[5]);
-	printf("\n% 5.0f% 5.0f% 5.0f\n", matrix[6], matrix[7], matrix[8]);
-}
-//TODO remove
-
 void		compute_points(t_env *env, t_matrix *matrix, int p1, int p2)
 {
 	float	new_x;
 	float	new_y;
 	float	new_z;
 
-	new_x = env->points[p1][0] * matrix->x[0] + env->points[p1][1] 
+	new_x = env->points[p1][0] * matrix->x[0] + env->points[p1][1]
 		* matrix->x[3] + env->points[p1][2] * matrix->x[6];
 	new_y = env->points[p1][0] * matrix->x[1] + env->points[p1][1]
 		* matrix->x[4] + env->points[p1][2] * matrix->x[7];

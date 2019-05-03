@@ -6,12 +6,18 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 16:33:07 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/03 16:54:12 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:59:54 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <unistd.h>
+#include <stdlib.h>
+
+int			plot(float nb)
+{
+	return ((int)(nb + 0.5));
+}
 
 int			close_fd(int fd, int lines)
 {

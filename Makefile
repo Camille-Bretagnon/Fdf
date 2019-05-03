@@ -6,7 +6,7 @@
 #    By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/03 16:54:48 by cbretagn          #+#    #+#              #
-#    Updated: 2019/05/03 17:41:47 by cbretagn         ###   ########.fr        #
+#    Updated: 2019/05/03 20:00:24 by cbretagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ NAME		= fdf
 SRC			= main.c\
 			  parsing.c\
 			  get_next_line.c\
-			  projection.c\
 			  fill_image.c\
 			  matrix.c\
 			  event.c\
@@ -29,7 +28,7 @@ LIB_PATH	= libft/libft.a
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra
+CFLAGS		= -Wall -Wextra -Werror
 
 MLX_FLAGS	= -lmlx -framework OpenGL -framework Appkit
 
