@@ -6,7 +6,7 @@
 /*   By: cbretagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:10:51 by cbretagn          #+#    #+#             */
-/*   Updated: 2019/05/03 18:09:05 by cbretagn         ###   ########.fr       */
+/*   Updated: 2019/05/06 13:28:24 by cbretagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int			nb_points(char *str)
 	return (ret);
 }
 
-static int			nb_lines(char *file)
+static int			nb_lines(char *file, int test)
 {
 	int		fd;
 	int		i;
@@ -47,8 +47,9 @@ static int			nb_lines(char *file)
 
 	lines = 0;
 	fd = open(file, O_RDONLY);
-	while ((ret = read(fd, buffer, 4096)) > 0)
+	while ((ret = read(fd, buffer, 4096)) > 0 && test < 300)
 	{
+		test++;
 		buffer[ret] = '\0';
 		i = -1;
 		while (buffer[++i])
@@ -123,11 +124,11 @@ float				**get_points(char *file, t_env *env)
 	char	*temp;
 
 	i = -1;
-	env->y = nb_lines(file);
+	env->y = nb_lines(file, 0);
 	fd = open(file, O_RDONLY);
 	get_next_line(fd, &line);
 	env->x = nb_points(line);
-	if (env->y < 1 || env->x < 2)
+	if (env->y < 1 || env->y > 200 || env->x > 200 || env->x < 2)
 		return (NULL);
 	temp = line;
 	array = generate_array_points(env->x, env->y);
